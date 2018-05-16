@@ -1,0 +1,232 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace ShowDoMilhao
+{
+    /// <summary>
+    /// Interação lógica para MainWindow.xam
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public Jogador Jogador;
+        public List<Pergunta> Perguntas;
+        public int IDPerguntaAtual;
+
+        public MainWindow()
+        {
+            Perguntas = new List<Pergunta>();
+            InitializeComponent();
+            IDPerguntaAtual = 0;
+
+            var pergunta1 = new Pergunta
+            {
+                Enunciado = "Qual o tipo de radiação que deu poderes ao Hulk?",
+                Resposta1 = "Gama",
+                Resposta2 = "Ultra-Violeta",
+                Resposta3 = "Solar",
+                Resposta4 = "Plutônio",
+                Resposta5 = "Não sei sou da DC",
+                RespostaCorreta = 1
+            };
+
+            var pergunta2 = new Pergunta
+            {
+                Enunciado = "Qual o material do esqueleto do Wolverine?",
+                Resposta1 = "Madeira",
+                Resposta2 = "Aço",
+                Resposta3 = "Ferro",
+                Resposta4 = "Adamantium",
+                Resposta5 = "Vibranium",
+                RespostaCorreta = 4
+            };
+
+            var pergunta3 = new Pergunta
+            {
+                Enunciado = "Qual o nome verdadeiro do Capitão América?",
+                Resposta1 = "Bilbo Bolseiro",
+                Resposta2 = "Peter Parker",
+                Resposta3 = "Luke eu sou seu pai",
+                Resposta4 = "James Howlet",
+                Resposta5 = "Steve Rogers",
+                RespostaCorreta = 5
+            };
+
+			 var pergunta4 = new Pergunta
+            {
+                Enunciado = "Que parentes do Batman morreram?",
+                Resposta1 = "Os Pais",
+                Resposta2 = "Os Tios",
+                Resposta3 = "Os Avós",
+                Resposta4 = "Todos",
+                Resposta5 = "Nenhum, só as boysinha",
+                RespostaCorreta = 4
+            };
+
+			 var pergunta5 = new Pergunta
+            {
+                Enunciado = "Qual o nome da primeira namorada do Homem Aranha",
+                Resposta1 = "Mary Jane",
+                Resposta2 = "Felicya",
+                Resposta3 = "Gwen Stacy",
+                Resposta4 = "Betty Brant",
+                Resposta5 = "Nenhuma das alternativas",
+                RespostaCorreta = 3
+            };
+
+			 var pergunta6 = new Pergunta
+            {
+                Enunciado = "Qual o nome do Planeta do Superman?",
+                Resposta1 = "Marte",
+                Resposta2 = "Krypton",
+                Resposta3 = "Terra",
+                Resposta4 = "Ele nasceu foi na lua",
+                Resposta5 = "Sei não, chefia",
+                RespostaCorreta = 2
+            };
+
+			 var pergunta7 = new Pergunta
+            {
+                Enunciado = "Qual o nome da força que dá velocidade ao Flash?",
+                Resposta1 = "Cinética",
+                Resposta2 = "Gravidade",
+                Resposta3 = "Aceleração",
+                Resposta4 = "Centripeta",
+                Resposta5 = "Magnética",
+                RespostaCorreta = 3
+            };
+
+			 var pergunta8 = new Pergunta
+            {
+                Enunciado = "Qual a maior fraquesa do Homem de Ferro?",
+                Resposta1 = "Kryptonita",
+                Resposta2 = "Seu cinto de utilidades",
+                Resposta3 = "O Sol",
+                Resposta4 = "A Cachaça",
+                Resposta5 = "Mutantes",
+                RespostaCorreta = 4
+            };
+
+			 var pergunta9 = new Pergunta
+            {
+                Enunciado = "Quem são os X-Men?",
+                Resposta1 = "Uma Banda",
+                Resposta2 = "Um grupo de super heróis",
+                Resposta3 = "Um grupo de vilões",
+                Resposta4 = "Comunistas",
+                Resposta5 = "Facistas",
+                RespostaCorreta = 2
+            };
+
+			 var pergunta10 = new Pergunta
+            {
+                Enunciado = "Qual o nome do Martelo de Thor?",
+                Resposta1 = "Gusmão",
+                Resposta2 = "Diójines",
+                Resposta3 = "Mjonir",
+                Resposta4 = "Gnir",
+                Resposta5 = "Alibaba",
+                RespostaCorreta = 3
+            };
+
+            Perguntas.Add(pergunta1);
+            Perguntas.Add(pergunta2);
+            Perguntas.Add(pergunta3);
+        }
+
+        private void MostrarPergunta(Pergunta pergunta)
+        {
+            LabelPontuacao.Content = "Pontuação " + Jogador.Pontuacao;
+            TextBlockEnunciado.Text = pergunta.Enunciado;
+            RadioButtonResposta1.Content = pergunta.Resposta1;
+            RadioButtonResposta2.Content = pergunta.Resposta2;
+            RadioButtonResposta3.Content = pergunta.Resposta3;
+            RadioButtonResposta4.Content = pergunta.Resposta4;
+            RadioButtonResposta5.Content = pergunta.Resposta5;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var nome = TextBoxNomeJogador.Text;
+            this.Jogador = new Jogador(nome, 0);
+            GridTelaAbertura.Visibility = Visibility.Hidden;
+            GridTelaPergunta.Visibility = Visibility.Visible;
+
+            LabelNomeJogador.Content = 
+                this.Jogador.Nome 
+                + " jogando";
+
+            MostrarPergunta(Perguntas[0]);
+
+            Console.WriteLine(this.Jogador.Nome);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            // Checar se a resposta está correta
+            var perguntaAtual = Perguntas[IDPerguntaAtual];
+            var respostaPergunta = perguntaAtual.RespostaCorreta;
+
+            int respostaSelecionada = 0;
+
+            if(RadioButtonResposta1.IsChecked.Value) respostaSelecionada = 1;
+            else if(RadioButtonResposta2.IsChecked.Value) respostaSelecionada = 2;
+            else if(RadioButtonResposta3.IsChecked.Value) respostaSelecionada = 3;
+            else if(RadioButtonResposta4.IsChecked.Value) respostaSelecionada = 4;
+            else if(RadioButtonResposta5.IsChecked.Value) respostaSelecionada = 5;        
+
+            if(respostaSelecionada == respostaPergunta)
+            {
+                Jogador.Pontuacao = Jogador.Pontuacao + 10;
+            }
+            else
+            {
+                MostrarFinal();
+            }
+
+            IDPerguntaAtual = IDPerguntaAtual + 1;
+
+            if(IDPerguntaAtual < Perguntas.Count)
+            {
+                MostrarPergunta(Perguntas[IDPerguntaAtual]);
+            }
+            else
+            {
+                MostrarFinal();
+            }
+        }
+
+        private void MostrarFinal()
+        {
+            GridTelaPergunta.Visibility = Visibility.Hidden;
+            GridTelaFinal.Visibility = Visibility.Visible;
+
+            TextBlockFinal.Text =
+                "O jogo acabou!\n A sua pontuação foi: " +
+                Jogador.Pontuacao +
+                " pontos!";
+        }
+    }
+
+    public class Pergunta
+    {
+        public string Enunciado;
+        public string Resposta1;
+        public string Resposta2;
+        public string Resposta3;
+        public string Resposta4;
+        public string Resposta5;
+        public int RespostaCorreta;
+    }
+}
